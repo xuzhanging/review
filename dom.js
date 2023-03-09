@@ -31,7 +31,7 @@
 
 //8 阻止表单默认提交行为，可用e.preventDefault();
 
-//9 让输入框失去焦点(闪烁的光标)可以使用blur()
+//9 让输入框失去焦点(闪烁的光标)可以使用blur()，获得焦点focus()
 
 //10 querySelectorAll()得到的是一个伪数组，可以通过Array.from()方法转化为正真意义上的数组，扩展运算符（...）也可以
 
@@ -213,3 +213,9 @@
 // ['hashchange', 'load'].forEach(ev => window.addEventListener(ev, showRecipe));
 
 //32 navigator.language返回浏览器界面的语言
+
+//33 监听表单提交事件
+// form.addEventListener('submit', function() {});
+
+//34 改变表单的选项值时，触发change事件
+// input.addEventListener('change', function() {});
