@@ -219,3 +219,7 @@
 
 //34 改变表单的选项值时，触发change事件
 // input.addEventListener('change', function() {});
+
+//35 对于给页面一开始加载后还没有创建的元素绑定事件监听，可以用事件委托来实现
+
+//36 HTMLElement 接口的只读属性 dataset 提供了对元素上自定义数据属性（data-*）读/写访问
