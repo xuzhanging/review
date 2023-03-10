@@ -666,7 +666,8 @@
 // console.log(jonas instanceof Person);
 
 
-//59 JSON.parse() 方法用来解析 JSON 字符串，构造由字符串描述的 JavaScript 值或对象。JSON是一种文本格式字符串
+//59 JSON.parse() 方法用来解析 JSON 字符串，构造由字符串描述的 JavaScript 值或对象。JSON是一种文本格式字符串.
+//JSON.stringify() 方法将一个 JavaScript 对象或值转换为 JSON 字符串
 
 //60 传统发起AJAX请求的步骤
 //创建request对象

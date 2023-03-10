@@ -223,3 +223,15 @@
 //35 对于给页面一开始加载后还没有创建的元素绑定事件监听，可以用事件委托来实现
 
 //36 HTMLElement 接口的只读属性 dataset 提供了对元素上自定义数据属性（data-*）读/写访问
+
+//37 本地存储
+// localStorage 中的键值对总是以字符串的形式存储
+// 通过 Storage.setItem() 增加了一个数据项目,JSON.stringify()将对象转换为字符串
+// localStorage.setItem('workouts', JSON.stringify(this.#workouts));
+//读取 localStorage 项，JSON.parse()将字符串转换为对象
+// const workout = JSON.parse(localStorage.getItem('workouts'));
+//注意以上用JSON.stringify()和JSON.parse()会将对象的原型链丢失
+//移除 localStorage 项
+//localStorage.removeItem('workout');
+
+//38 location.reload() 方法用来刷新当前页面，就像刷新按钮一样
