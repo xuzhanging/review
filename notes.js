@@ -987,3 +987,6 @@
 // console.log(jonas);
 // console.log(jonas.__proto__);
 // // jonas.#getAge()
+
+//85 将es6+的新特性转换为es5之前（旧浏览器支持），让大部分浏览器都可运行，可以使用node中的core-js和regenerator-runtime这两个包，前者实现所有的转换， 后者实现async之类的转换
+//先安装npm i core-js regenerator-runtime，再在js最上面导入import 'core-js/stable'和import 'regenerator-runtime/runtime';
