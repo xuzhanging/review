@@ -84,6 +84,7 @@
 //logo.setAttribute('company', 'Bankist');
 //获取数据属性可以用dataset
 // console.log(logo.dataset.versionNumber);
+//Element.attributes可以获取元素的所有属性，使用Array.from()可将得到的属性集转换为数组
 
 //17 类 改变元素类名时，尽量使用classList中的方法，不要使用className，因为className赋值时会覆盖元素上的所有类，并且只能添加一个类
 
@@ -235,3 +236,24 @@
 //localStorage.removeItem('workout');
 
 //38 location.reload() 方法用来刷新当前页面，就像刷新按钮一样
+
+//39 Document.createRange()返回一个range对象
+//Range.createContextualFragment() 方法通过以 range 的开头（选定节点的父级）作为上下文节点来调用 HTML 片段解析算法，传入参数tagString包含要转换为文档片段的文本和标签的文本
+//Node.isEqualNode() 方法可以判断两个节点是否相等
+//Node 的 nodeValue 属性返回或设置当前文本节点的text值
+//当修改页面某些数据时，如果希望页面只在那些修改了数据或与修改数据有关的地方更新，而不必重新刷新整个页面时，可以使用如下方法
+// const newDOM = document.createRange().createContextualFragment(newMarkup);    
+// const newElements = Array.from(newDOM.querySelectorAll('*'));
+// const curElements = Array.from(this.#parentElement.querySelectorAll('*'));
+// newElements.forEach((newEl, i) => {
+//     const curEl = curElements[i];
+//     // console.log(curEl, newEl.isEqualNode(curEl));
+//     if((!newEl.isEqualNode(curEl)) && (newEl.firstChild?.nodeValue.trim() !== '')) {
+//         curEl.textContent = newEl.textContent;
+//     }
+//     if(!newEl.isEqualNode(curEl)) {
+//         Array.from(newEl.attributes).forEach(attr => {
+//         curEl.setAttribute(attr.name, attr.value)
+//         })
+//     }
+// })
