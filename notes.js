@@ -682,6 +682,14 @@
 //61 fetch
 //fetch() 强制接受一个参数，即要获取的资源的路径。它返回一个 Promise,在promise中可以使用then方法，then方法传入回调函数，回调函数传入response参数，可调用response上的json（）方法，该方法也会返回一个promise，在此promise上使用then（）方法，传入回调函数，可得到数据
 //fetch('https://restcountries.com/v2/name/portugal').then(response => response.json()).then(data => console.log(data));
+//fetch()发起POST请求时，除了接受URL外，还需接受一个包含上传数据的对象，如下
+// {
+//     method: 'POST',
+//     headers: {
+//         'Content-Type': 'application/json'
+//     },
+//     body: JSON.stringify(uploadData) //uploadData为上传的数据
+// }
 
 //62 rejected Promise 当用户没有连接到网络发起请求时，fetch会返回一个rejected promise。promise处于rejected时，有两种处理方法。
 //方法一：在then中传入第二个回调函数作为处理失败的回调函数

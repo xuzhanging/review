@@ -257,3 +257,8 @@
 //         })
 //     }
 // })
+
+//40 FormData 可以将表单的所有数据转换为键值对列表
+//const dataArr = [...new FormData(表单元素)]
+//Object.fromEntries() 方法把键值对列表转换为一个对象,Object.entries()方法返回一个给定对象自身可枚举属性的键值对数组
+// const data = Object.fromEntries(dataArr);
