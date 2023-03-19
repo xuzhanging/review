@@ -262,3 +262,10 @@
 //const dataArr = [...new FormData(表单元素)]
 //Object.fromEntries() 方法把键值对列表转换为一个对象,Object.entries()方法返回一个给定对象自身可枚举属性的键值对数组
 // const data = Object.fromEntries(dataArr);
+
+//41 history
+//Window.history 是一个只读属性，用来获取History 对象的引用，History 对象提供了操作浏览器会话历史（浏览器地址栏中访问的页面，以及当前页面中通过框架加载的页面）的接口
+//history.pushState() 方法向当前浏览器会话的历史堆栈中添加一个状态，改变当前URL，接受三个参数，前两个不重要，可传入null和''，第三个参数是URL，URL 不必是绝对的。如果是相对的，则相对于当前 URL 进行解析,可以是hash值。
+// window.history.pushState(null, '', `#${model.state.recipe.id}`);
+
+//42 js代码说明文档 jsdoc.app
