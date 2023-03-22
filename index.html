@@ -21,3 +21,82 @@
 <!-- 多使用语义化标签有利于搜索引擎优化 -->
 
 <!-- CSS Cascading Style Sheets 层叠样式表 -->
+<!-- <h1 style="color: blue"></h1> 内联式CSS，不推荐使用这种方式 -->
+<!-- <style></style> 内部CSS，写在head中 -->
+<!-- 外部CSS 另建一个style.css文件并引入index.html-->
+<!-- <link rel="stylesheet" href="CSS文件路径"> -->
+<!-- font-size: 26px 设置字体大小 -->
+<!-- font-family: sans-serif 设置字体 -->
+<!-- text-transform: uppercase 文本设置为大写 -->
+<!-- font-style: italic 设置斜体 -->
+<!-- line-height: 1.5 设置行高为字体大小的1.5倍 -->
+<!-- text-align: center 设置文本居中 -->
+<!-- font-weight: bold 设置字体加粗 -->
+<!-- /* */ CSS中的注释 -->
+<!-- h1, h2, p {
+  font-size: 20px;
+} 同时选择多个选择器用逗号隔开 -->
+<!-- footer p {
+  font-size: 16px;
+} 后代选择器用空格隔开-->
+<!-- id选择器是唯一的，不能重复，class选择器可以重复，当选择器有多个单词时，习惯用-隔开 -->
+<!-- ul {
+  list-style: none;
+} 去掉列表的原点-->
+<!-- CSS中颜色表示：
+1.RGB/RGBA模型 r:red, g:green, b:blue 取值0-255，a:透明度 0-1
+color: rgb(0, 255, 255) color: rgba(0, 255, 255, 0.3)
+2.16进制表示法 用0-ff表示0-255 两两相同时可简写
+color: #00ffff color: #0ff
+-->
+<!-- background-color: #f7f7f7 设置背景颜色 -->
+<!-- border: 5px solid #1098ad 设置边框粗细、线条、颜色，solid实线，dotted点线，dashed虚线 
+border-top: 5px solid #1098ad 设置上边框 还可以有bottom、left、right-->
+<!-- 伪类
+li:first-child {
+  font-weight: bold;
+} 选择第一个li
+li:last-child {
+  font-style: italic;
+} 选择最后一个li
+li:nth-child(2) {
+  color: red;
+} 选择第二个li
+li:nth-child(odd) {
+  color: red;
+} 选择奇数的li
+li:nth-child(even) {
+  color: red;
+} 选择偶数的li
+对含有父选择器的伪类容易出错，如下
+article p:first-child {
+  color: red;
+} 注意这里是选择article下的第一个孩子，若是p则生效，若不是p则不生效-->
+<!-- a:link {
+  color: red;
+} 选择有href属性的a-->
+<!-- a:visited {
+  color: green;
+} 选择点击过的a-->
+<!-- a:active {
+  background-color: black;
+} 改变a被点击时的样式，点击后恢复原样-->
+<!-- a:hover {
+  color: red;
+} 鼠标悬停 -->
+<!-- text-decoration: none; 去掉a的下划线 underline下划线 该属性为复合属性，还可以设置颜色、下划线样式-->
+<!-- 选择器权重从高到低
+  !important(color: red !important;)
+  ↓
+  内联式(style attribute in HTML)
+  ↓
+  id(#)选择器
+  ↓
+  class(.)或伪类(:)选择器
+  ↓
+  元素(p,div,li,...)选择器
+  ↓
+  通用(*)选择器
+ -->
+<!-- 当权重相同时，后出现的覆盖先出现的 -->
+<!-- class多个类可用空格隔开 class="class1 class2" -->
