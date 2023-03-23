@@ -129,7 +129,7 @@ margin-right: auto; 也可以简写为margin: 0 auto; -->
  -->
 <!-- display: block; 可以将元素转换为块级元素 -->
 <!-- 行内元素
-  占据的空间为其内容大小，前后不换行， 宽高不生效，padding和margin只有left和right生效-->
+  占据的空间为其内容大小，前后不换行， 宽高不生效，padding和margin只有left和right生效 注意text-align: center;设置在行内元素上无效，因为行内元素占据空间为内容大小，应设置在其父元素上-->
 <!-- display: inline; 可以将元素转换为行内元素 -->
 <!-- 行内块元素
 外表看起来像行内元素，在行内表现为块级元素，占据空间为内容大小，前后不换行，盒子模型适用 -->
@@ -141,4 +141,10 @@ margin-right: auto; 也可以简写为margin: 0 auto; -->
 h1::first-letter {
   font-size: 20px;
 } 选择h1的第一个字母
-p::first-line 选择p的第一行-->
+p::first-line 选择p的第一行
+伪元素默认是行内元素，可转化为行内块元素便于设置宽高和内外边距
+h1::after {
+  content: "TOP";
+  display: inline-block;
+} 给h1最后添加一个伪元素，并设置元素文本为TOP，before是添加最前面的伪元素-->
+<!-- letter-spacing: 2px; 设置字母间隔 -->
