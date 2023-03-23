@@ -39,10 +39,13 @@
 <!-- footer p {
   font-size: 16px;
 } 后代选择器用空格隔开-->
+<!-- h3 + p {
+  color: red;
+} 相邻选择器用+隔开 选择h3的向下相邻元素p-->
 <!-- id选择器是唯一的，不能重复，class选择器可以重复，当选择器有多个单词时，习惯用-隔开 -->
 <!-- ul {
   list-style: none;
-} 去掉列表的原点-->
+} 去掉列表的圆点 square方形点-->
 <!-- CSS中颜色表示：
 1.RGB/RGBA模型 r:red, g:green, b:blue 取值0-255，a:透明度 0-1
 color: rgb(0, 255, 255) color: rgba(0, 255, 255, 0.3)
@@ -100,3 +103,42 @@ article p:first-child {
  -->
 <!-- 当权重相同时，后出现的覆盖先出现的 -->
 <!-- class多个类可用空格隔开 class="class1 class2" -->
+<!-- 继承大多数是关于文本text的属性 -->
+<!-- border: none; 可以去掉按钮的边框 -->
+<!-- cursor: pointer; 设置光标为小手 -->
+<!-- CSS BOX MODEL 
+content-padding-border-margin
+其中padding和border在元素中，margin在元素外
+最终元素宽=左边框宽+左内边距+内容宽+右内边距+右边框宽
+最终元素高=上边框宽+上内边距+内容高+下内边距+下边框宽
+-->
+<!-- 全局重置
+* {
+  margin: 0;
+  padding: 0;
+} -->
+<!-- ul,ol的margin-left设为0时，会不显示li前的数字或圆点 -->
+<!-- 边缘塌陷
+  前一个元素设置了margin-bottom，后一个元素设置了margin-top，最终两个元素之间的间距会以二者最大值为准 -->
+<!-- 居中
+margin-left: auto;
+margin-right: auto; 也可以简写为margin: 0 auto; -->
+<!-- width: 100% 设置宽为父元素的100% -->
+<!-- 块级元素
+  块级元素宽为父元素宽的100%，前后换行，盒子模型适用于块级元素
+ -->
+<!-- display: block; 可以将元素转换为块级元素 -->
+<!-- 行内元素
+  占据的空间为其内容大小，前后不换行， 宽高不生效，padding和margin只有left和right生效-->
+<!-- display: inline; 可以将元素转换为行内元素 -->
+<!-- 行内块元素
+外表看起来像行内元素，在行内表现为块级元素，占据空间为内容大小，前后不换行，盒子模型适用 -->
+<!-- display: inline-block; 将元素转换为行内块元素 -->
+<!-- 定位
+当只给某个元素设置absolute定位，而没有给其父元素设置定位时，left、top等是相对于视口（可见区域），父元素设置relative定位时，left、top等是相对于父元素-->
+<!-- 伪元素
+伪类是一个冒号，伪元素是两个冒号
+h1::first-letter {
+  font-size: 20px;
+} 选择h1的第一个字母
+p::first-line 选择p的第一行-->
