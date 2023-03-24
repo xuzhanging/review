@@ -109,13 +109,18 @@ article p:first-child {
 <!-- CSS BOX MODEL 
 content-padding-border-margin
 其中padding和border在元素中，margin在元素外
+默认情况下(box-sizing: content-box;)：
 最终元素宽=左边框宽+左内边距+内容宽+右内边距+右边框宽
 最终元素高=上边框宽+上内边距+内容高+下内边距+下边框宽
+设置内减模式下(box-sizing: border-box;)：
+最终元素宽=设置的元素宽
+最终元素高=设置的元素高
 -->
 <!-- 全局重置
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 } -->
 <!-- ul,ol的margin-left设为0时，会不显示li前的数字或圆点 -->
 <!-- 边缘塌陷
@@ -148,3 +153,32 @@ h1::after {
   display: inline-block;
 } 给h1最后添加一个伪元素，并设置元素文本为TOP，before是添加最前面的伪元素-->
 <!-- letter-spacing: 2px; 设置字母间隔 -->
+<!-- 浮动float
+  float: left;
+  float: right;
+float会脱离文档标准流，文本text和行内元素会围绕在浮动元素旁
+被浮动元素的父元素（容器）不会调整高度，称为塌陷，可以通过清除浮动来解决塌陷 -->
+<!-- 清除浮动
+方法1：在浮动元素的父元素中添加一个子元素div，不设置本文内容，选择该div，设置属性clear：both; 如果父元素中在设置了浮动的元素后原本就有未设置浮动属性的元素(若是非块级元素，转换为块级元素)，则直接在那个元素上设置clear: both;即可，不用添加新元素。
+方法2：在浮动元素的父元素中添加伪元素，content设置为空，转换为块级元素
+.clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}-->
+<!-- flex弹性布局
+  给父容器(弹性容器)添加display: flex;属性，子元素(弹性项)弹性布局。
+  设置在弹性容器上的属性：
+  align-items: center; 设置侧轴居中，还可取值flex-start上对齐、flex-end下对齐，默认是stretch拉伸为最高元素一样高
+  justify-content: center; 设置主轴居中，还可取值space-between元素（除第一个和最后一个元素）两端有空隙，但容器两端无空隙
+  设置在弹性项上的属性：
+  align-self会覆盖align-items设置在该项上的属性值(单独设置某一项)
+  order设置弹性项的顺序，元素按照 order 属性的值的增序进行布局。拥有相同 order 属性值的元素按照它们在源代码中出现的顺序进行布局
+  flex-grow(默认值为0)，表示弹性容器剩余空隙分配给该弹性项的份数
+  flex-shrink(默认值为1)，1表示收缩，0表示不收缩
+  flex-basis(默认值为auto)，设置弹性项宽(受flex-shrink影响，想要达到指定的宽，flex-shrink需设置为0)
+  flex是这三个属性的缩写（这三个属性不单独使用，通常使用flex）,flex: 1;设置该弹性项占据弹性容器空间份数为1，给所有弹性项设置相同的flex值，弹性项大小一致
+  设置弹性项之间的间距有两种方法：
+  一是设置margin，二是gap(设置在弹性容器上)
+ -->
+<!-- 注意，设置了伪元素后，在给容器添加flex时，伪元素也会成为弹性项 -->
