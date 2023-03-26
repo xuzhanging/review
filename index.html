@@ -17,7 +17,11 @@
 <!-- <nav>导航标签</nav> -->
 <!-- <article>文章标签</article> -->
 <!-- <aside>次要信息标签</aside> -->
+<!-- <section>部分标签</section> -->
+<!-- <blockquote>引用标签(某人说的话)</blockquote> -->
 <!-- <footer>页脚标签</footer> 页脚标签通常写版权，copy符号可用 &copy; 这个HTML实体来表示-->
+<!-- <svg><path></path></svg> svg标签，描述图形，path路径标签，准确描述图形-->
+<!-- <figure></figure> 可用于购物车模块的标签-->
 <!-- 多使用语义化标签有利于搜索引擎优化 -->
 
 <!-- CSS Cascading Style Sheets 层叠样式表 -->
@@ -26,7 +30,7 @@
 <!-- 外部CSS 另建一个style.css文件并引入index.html-->
 <!-- <link rel="stylesheet" href="CSS文件路径"> -->
 <!-- font-size: 26px 设置字体大小 -->
-<!-- font-family: sans-serif 设置字体 -->
+<!-- font-family: sans-serif 设置无衬线字体 -->
 <!-- text-transform: uppercase 文本设置为大写 -->
 <!-- font-style: italic 设置斜体 -->
 <!-- line-height: 1.5 设置行高为字体大小的1.5倍 -->
@@ -197,3 +201,36 @@ float会脱离文档标准流，文本text和行内元素会围绕在浮动元�
   grid-column: 1 / 2;表示选中1到2之间的列，grid-row: 1 / 2;表示选中1到2之间的行，二者合起来表示选中一个位置，设置了这两个属性值的网格项内容会放到选中的那个位置；还可以写为grid-column: 1 / span 2;表示从列道1开始选中2列；
   当网格容器大于整个网格时，使用justify-content和align-content来对齐；对齐网格项中的内容时，使用justify-items和align-items，注意这四个属性是加在父容器上，还可以使用align-self和justify-self来单独设置某个网格项中的内容，这两个属性是加在网格项上的。
  -->
+<!-- svg元素中可以使用stroke属性来设置字体图标的线条轮廓颜色 
+icon {
+  stroke: #087f5b;
+}-->
+<!-- css使用shadow阴影
+  给盒子添加阴影，添加box-shadow: 10px 10px 10px 10px #000
+接受5个参数，参数1是阴影水平离盒子的距离，参数2是阴影垂直离盒子的距离，参数3是阴影的模糊程度(模糊半径)，值越大，模糊面积越大，阴影就越大越淡，参数4是阴影的放缩程度(扩散半径)，取正值时，阴影扩大；取负值时，阴影收缩，参数5是阴影颜色
+  给文本添加阴影，添加text-shadow: 10px 10px 10px #000 没有扩散半径-->
+<!-- border-radius 添加圆角
+  border-radius: 12px; 将四个角均添加圆角
+  border-bottom-left-radius: 12px; 仅将左下角添加圆角，其他不变
+ -->
+
+<!-- Web Design -->
+<!-- 一、Typography排版 
+1、每个页面尽量使用一种字体
+2、普通文本字体大小在16px到32px之间
+3、长文本像blog，字体在20px或20px以上
+4、对于标题，字体大小50px+，加粗600+
+5、对于任何文本font-weight不要在400(普通)以下
+6、每行尽量少于75个字母
+7、对于普通大小的文本，行高在1.5到2，对于大文本，行高在1.5以下
+8、如果标题字母间距不自然，letter-spacing可以取负值减少间距
+9、对于短标题可以使用全部大写，变小，加粗，增大字母间距
+10、通常不居中文本
+11、不要居中长的文本段，小文本段可以居中-->
+<!-- 二、Color颜色
+1、在页面上使用主要的颜色来描绘最重要的元素，比如按钮
+2、使用颜色使某个组件或部分突出 
+3、在深色背景上，文字尽量使用背景颜色的色调(背景颜色较浅的版本)
+4、文本颜色通常不要完全黑，可以使用灰色来减轻-->
+<!-- 三、Icons字体图标
+使用SVG icons 或 icon fonts，不要使用.jpg,png,gif -->
