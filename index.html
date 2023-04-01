@@ -251,6 +251,28 @@ icon {
 background-size: cover; 自动计算图片尺寸来覆盖元素背景-->
 <!-- background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)) 设置背景渐变 -->
 <!-- 当容器中元素过多，可以设置overflow: scroll; 滚动 当是弹性容器时，达到滚动还要在弹性项上设置flex-shrink: 0;-->
+<!-- 过渡属性 transition: background-color 1s; 颜色变化持续1s，transition：all 1s；所有属性变化持续1s -->
+
+<!-- 响应式设计
+  1、fluid layouts 流式布局
+  让页面适配当前视口宽或高；
+  使用%或vh、vw单位来代替px作为要适配视口的元素的单位；
+  使用max-width来代替width；
+  2、responsive units 响应单位
+  对于大多数长度使用rem单位来代替px；
+  设置1rem = 10px 便于计算
+  3、flexible images
+  默认情况下，当改变视口时图片不会自动放缩；
+  对于图片尺寸使用%和max-width；
+  4、media queries 媒体查询
+  在特定的断点改变css样式
+ -->
+<!-- max-width 当父容器宽大于max-width时，设置max-width的元素宽为max-width的大小，当父容器宽小于max-width时，设置max-width的元素宽为父容器宽的大小 -->
+<!-- rem 为 root element font-size ，文档的根为html元素，font-size默认16px，即1rem = 16px 通过改变根元素font-size大小来改变rem大小
+通常设置1rem = 10px 便于计算，所以通常将根元素font-size大小设为62.5% ,因为10 / 16 = 62.5%,同时设置为62.5%可以根据用户浏览器设置的字体大小以62.5%动态变换；
+html {
+  font-size: 62.5%;
+}-->
 
 <!-- Web Design -->
 <!-- 一、Typography排版 
