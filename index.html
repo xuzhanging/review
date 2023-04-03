@@ -24,6 +24,7 @@
 <!-- <figure></figure> 可用于购物车模块的标签-->
 <!-- <menu></menu> 菜单标签-->
 <!-- <main></main> 主要信息标签-->
+<!-- <figcaption></figcaption> 元素是与其相关联的图片的说明/标题，用于描述其父节点 <figure> 元素里的其他数据 ,只能用在<figure>中-->
 <!-- 多使用语义化标签有利于搜索引擎优化 -->
 
 <!-- CSS Cascading Style Sheets 层叠样式表 -->
@@ -258,6 +259,48 @@ background-size: cover; 自动计算图片尺寸来覆盖元素背景-->
 <!-- opacity: 0.5; 可以设置透明度 -->
 <!-- overflow: hidden; 可以隐藏超出元素的内容 -->
 <!-- color：transparent; 透明 -->
+<!-- transform: rotate(45deg) 旋转 -->
+<!-- .grid:not(:last-child) {} 选择含有grid类的元素(除去最后一个) -->
+<!-- font-family: inherit; 字体继承父元素 -->
+<!-- input::placeholder {
+  color: #aaa;
+} 选中input中的占位符-->
+<!-- *:focus {
+  outline: none;
+  box-shadow: 0 0 0 0.8rem rgba(253, 242, 233, 0.5);
+} 设置按钮和输入框等获得焦点时的样式-->
+
+<!-- form 表单
+  action为表单数据提交到的URL地址，for和id一致(鼠标点击label时，input输入框获得焦点)，type为输入框的类型，placeholder为占位符(提示用户)，required表示此项必填
+  <form class="cta-form" action="#">
+    <label for="full-name">Full Name</label>
+    <input
+      id="full-name"
+      type="text"
+      placeholder="John Smith"
+      required
+    />
+    <label for="email">Email address</label>
+    <input
+      id="email"
+      type="email"
+      placeholder="me@example.com"
+      required
+    />
+    <label for="select-where">Where did you hear from us?</label>
+    <select id="select-where" required>
+      <option value="">Please choose one option:</option>
+      <option value="friends">Friends and family</option>
+      <option value="youtube">YouTube video</option>
+      <option value="podcast">Podcast</option>
+      <option value="ad">Facebook ad</option>
+      <option value="others">Others</option>
+    </select>
+    <button class="btn btn--form">Sign up now</button>
+    <input type="checkbox" />
+    <input type="number" />
+  </form>
+ -->
 
 <!-- 响应式设计
   1、fluid layouts 流式布局
