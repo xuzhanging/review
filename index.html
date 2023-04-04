@@ -2,6 +2,17 @@
 <!-- <!DOCTYPE html> 告诉浏览器这个文档使用HTML，浏览器会用HTML5来规范并呈现此HTML页面 -->
 <!-- <html lang="en"></html> 指定用于网页的语言，en英语 -->
 <!-- <meta charset="UTF-8">指定字符集属性，写在head标签中 -->
+<!-- <meta name="description" content="描述内容"> -->
+<!-- <link rel="icon" href=""> 给pc网页添加favicon -->
+<!-- <link rel="apple-touch-icon" href=""> 给ios网页添加favicon -->
+<!-- <link rel="manifest" href="manifest.webmanifest"> 给android网页添加favicon 需要创建一个manifest.webmanifest文件，内容如下：
+{
+  "icons": [
+    { "src": "img/favicon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "img/favicon-512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}
+-->
 <!-- 标题标签有6级 h1到h6 -->
 <!-- 是HTML中的注释 -->
 <!-- <b>加粗标签，没有语义化，旧标签，不推荐使用</b> -->
@@ -12,7 +23,7 @@
 <!-- <ul>无序列表</ul> -->
 <!-- <img src="图片路径" alt="描述图片"> -->
 <!-- <a href="URL" target="_blank"></a> href中填写跳转的URL，target属性可指定是否在一个新页面打开跳转的页面，默认在当前页面打开，值为_blank时，在新页面打开 -->
-<!-- <a href="#"></a> 不想跳转其它页面时，href可指定为#，但会滑到页面顶部 -->
+<!-- <a href="#"></a> 不想跳转其它页面时，href可指定为#，但会滑到页面顶部； 若href="#该页面某个部分的id"，点击后页面会移动到那个部分，可以在html中设置scroll-behavior: smooth; 来滑动到那部分，但该设置对浏览器兼容不好，部分浏览器无法使用-->
 <!-- <header>标题标签</header> -->
 <!-- <nav>导航标签</nav> -->
 <!-- <article>文章标签</article> -->
@@ -25,6 +36,11 @@
 <!-- <menu></menu> 菜单标签-->
 <!-- <main></main> 主要信息标签-->
 <!-- <figcaption></figcaption> 元素是与其相关联的图片的说明/标题，用于描述其父节点 <figure> 元素里的其他数据 ,只能用在<figure>中-->
+<!-- <address> 元素 表示其中的 HTML 提供了某个人或某个组织（等等）的联系信息。通常，<address> 元素可以放在 <footer> 元素之中 <br>换行
+  <address>
+    <a href="mailto:jim@rock.com">jim@rock.com</a><br>
+    <a href="tel:+13115552368">(311) 555-2368</a>
+  </address> -->
 <!-- 多使用语义化标签有利于搜索引擎优化 -->
 
 <!-- CSS Cascading Style Sheets 层叠样式表 -->
@@ -258,6 +274,7 @@ background-size: cover; 自动计算图片尺寸来覆盖元素背景-->
 <!-- filter：blur(5px) 可以改变模糊程度，还有其他的一些函数可以改变透明度、饱和程度、对比度等-->
 <!-- opacity: 0.5; 可以设置透明度 -->
 <!-- overflow: hidden; 可以隐藏超出元素的内容 -->
+<!-- overflow-x: hidden; 可以隐藏超出元素水平方向的内容 -->
 <!-- color：transparent; 透明 -->
 <!-- transform: rotate(45deg) 旋转 -->
 <!-- .grid:not(:last-child) {} 选择含有grid类的元素(除去最后一个) -->
@@ -269,6 +286,19 @@ background-size: cover; 自动计算图片尺寸来覆盖元素背景-->
   outline: none;
   box-shadow: 0 0 0 0.8rem rgba(253, 242, 233, 0.5);
 } 设置按钮和输入框等获得焦点时的样式-->
+<!-- 隐藏元素两种方法
+方法一
+display: none; 但此方法不能设置过渡
+方法二
+首先从视觉上隐藏
+opacity：0；
+然后让鼠标和键盘无法访问
+pointer-events:none；
+最后从屏幕阅读器上隐藏
+visibility：hidden；
+显示元素可设置 opacity： 1；pointer-events: auto；visibility:visible; -->
+
+<!-- 可以在google中的lighthouse中测试网页表现性能 -->
 
 <!-- form 表单
   action为表单数据提交到的URL地址，for和id一致(鼠标点击label时，input输入框获得焦点)，type为输入框的类型，placeholder为占位符(提示用户)，required表示此项必填
@@ -276,6 +306,7 @@ background-size: cover; 自动计算图片尺寸来覆盖元素背景-->
     <label for="full-name">Full Name</label>
     <input
       id="full-name"
+      name="full-name"
       type="text"
       placeholder="John Smith"
       required
@@ -283,6 +314,7 @@ background-size: cover; 自动计算图片尺寸来覆盖元素背景-->
     <label for="email">Email address</label>
     <input
       id="email"
+      name="email"
       type="email"
       placeholder="me@example.com"
       required
@@ -322,6 +354,13 @@ background-size: cover; 自动计算图片尺寸来覆盖元素背景-->
 html {
   font-size: 62.5%;
 }-->
+<!-- 媒体查询
+@media (max-width:600px) {
+  .container {
+    background-color: skyblue;
+  }
+} 页面宽度小于等于600px时，含有container类的元素背景颜色变为skyblue
+在媒体查询中，rem(根元素字体大小)和em(当前元素字体大小)均不依赖于html中的字体大小,相反 1rem = 1em = 16px-->
 
 <!-- Web Design -->
 <!-- 一、Typography排版 

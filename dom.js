@@ -95,7 +95,11 @@
 //Window.scrollTo()表示从页面最开始的位置（非当前视口）滚动到文档中的某个坐标位置
 //window.scrollTo(x, y)//x为水平滚动距离， y为垂直滚动距离
 //window.scrollTo(options)//options为一个包含三个属性的对象（top垂直滚动距离， left水平滚动距离，behavior滚动行为）
-//Element.scrollIntoView()可以更简单的实现将页面滚动到Element元素处，但有兼容性
+// window.scrollTo({
+//   top: 0,
+//   behavior: "smooth",
+// });
+//Element.scrollIntoView({behavior: "smooth"})可以更简单的实现将页面滚动到Element元素处，但有兼容性
 
 //19 移除事件监听
 // const alert1 = function() {
@@ -242,7 +246,7 @@
 //Node.isEqualNode() 方法可以判断两个节点是否相等
 //Node 的 nodeValue 属性返回或设置当前文本节点的text值
 //当修改页面某些数据时，如果希望页面只在那些修改了数据或与修改数据有关的地方更新，而不必重新刷新整个页面时，可以使用如下方法
-// const newDOM = document.createRange().createContextualFragment(newMarkup);    
+// const newDOM = document.createRange().createContextualFragment(newMarkup);
 // const newElements = Array.from(newDOM.querySelectorAll('*'));
 // const curElements = Array.from(this.#parentElement.querySelectorAll('*'));
 // newElements.forEach((newEl, i) => {
