@@ -275,7 +275,6 @@ app.use("/api", apiRouter);
 app.listen(80, function () {
   console.log("Express server running at http://127.0.0.1");
 });
-
 // apiRouter.js代码：
 const express = require("express");
 const apiRouter = express.Router();
@@ -298,3 +297,89 @@ apiRouter.post("/post", function (req, res) {
   });
 });
 module.exports = apiRouter;
+
+// 23.在项目中操作mysql
+// 1)安装操作mysql数据库的第三方模块mysql
+// npm i mysql
+// 2)通过mysql模块连接到mysql数据库
+const mysql = require("mysql"); //导入mysql模块
+const db = mysql.createPool({
+  //建立与mysql数据库的连接
+  host: "127.0.0.1", //数据库的IP地址
+  user: "root", //登录数据库的账号
+  password: "admin123", //登录数据库的密码
+  database: "my_db_01", //指定要操作哪个数据库
+});
+// 3)通过mysql模块执行SQL语句
+// 调用db.query()函数，指定要执行的SQL语句，通过回调函数拿到执行的结果
+// （1）查询数据
+const sqlStr1 = "select * from users";
+db.query(sqlStr1, function (err, results) {
+  if (err) return console.log(err.message);
+  //注意：如果执行的是select查询语句，则执行的结果results是数组
+  console.log(results);
+});
+// （2）插入数据
+const user = { username: "zhangsan", password: "111" };
+// 待执行的sql语句，其中?表示占位符
+const sqlStr2 = "insert into users (username, password) values (?, ?)";
+// 使用数组的形式，依次为?占位符指定具体的值
+db.query(sqlStr2, [user.username, user.password], function (err, results) {
+  if (err) return console.log(err.message);
+  //注意：如果执行的是insert into插入语句，则执行的结果results是一个对象，可以通过affectedRows属性来判断是否插入数据成功
+  if (results.affectedRows === 1) {
+    console.log("插入数据成功");
+  }
+});
+// 以上较麻烦，如果数据对象的每个属性和数据表的字段一一对应，则可以通过如下方式快速插入数据
+const user1 = { username: "lisi", password: "222" };
+const sqlStr3 = "insert into users set ?";
+db.query(sqlStr3, user1, function (err, results) {
+  if (err) return console.log(err.message);
+  if (results.affectedRows === 1) {
+    console.log("插入数据成功");
+  }
+});
+// （3）更新数据
+const user2 = { id: 7, username: "aaa", password: "000" };
+const sqlStr4 = "update users set username=?, password=? where id=?";
+db.query(
+  sqlStr4,
+  [user2.username, user2.password, user2.id],
+  function (err, results) {
+    if (err) return console.log(err.message);
+    //注意：如果执行的是update更新语句，则执行的结果results也是一个对象，可以通过affectedRows属性来判断是否更新数据成功
+    if (results.affectedRows === 1) {
+      console.log("更新数据成功");
+    }
+  }
+);
+// 以上较麻烦，如果数据对象的每个属性和数据表的字段一一对应，则可以通过如下方式快速更新数据
+const user3 = { id: 7, username: "aaa", password: "000" };
+const sqlStr5 = "update users set ? where id=?";
+db.query(sqlStr5, [user3, user3.id], function (err, results) {
+  if (err) return console.log(err.message);
+  if (results.affectedRows === 1) {
+    console.log("更新数据成功");
+  }
+});
+// （4）删除数据
+const sqlStr6 = "delete from users where id=?";
+// 如果待执行的sql语句中有多个占位符，则必须使用数组为每个占位符指定具体的值，如果只有一个占位符，可以省略数组
+db.query(sqlStr6, 7, function (err, results) {
+  //删除id为7的数据
+  if (err) return console.log(err.message);
+  //注意：如果执行的是delete删除语句，则执行的结果results也是一个对象，可以通过affectedRows属性来判断是否删除数据成功
+  if (results.affectedRows === 1) {
+    console.log("删除数据成功");
+  }
+});
+// 标记删除
+// 使用delete语句会真正把数据从表中删除，为了保险起见，推荐使用标记删除的形式，来模拟删除的动作，就是在表中设置类似于status这样的状态字段，来标记当前这条数据是否被删除，当用户执行删除动作时，并没有执行delete语句把数据删除掉，而是执行update语句将这条数据对应的status字段标记为删除即可。
+const sqlStr7 = "update users set status=1 where id=?";
+db.query(sqlStr7, 6, function (err, results) {
+  if (err) return console.log(err.message);
+  if (results.affectedRows === 1) {
+    console.log("删除数据成功");
+  }
+});
