@@ -383,3 +383,109 @@ db.query(sqlStr7, 6, function (err, results) {
     console.log("删除数据成功");
   }
 });
+
+// 24.web开发模式
+// （1）服务端渲染
+// 优点：前端耗时少，有利于SEO
+// 缺点：占用服务端资源，不利于前后端分离，开发效率低
+// （2）前后端分离
+// 优点：减轻服务器端的渲染压力
+// 缺点：不利于SEO（解决方案：利用vue、react的SSR能很好的解决SEO问题）
+
+// 25.身份认证
+// （1）服务端渲染推荐使用Session认证机制
+// cookie特性：自动发送、域名独立、过期时限、4KB限制
+// cookie在身份认证中的作用：客户端第一次请求服务器时，服务器通过响应头的形式，向客户端发送一个身份认证的cookie，客户端会自动将cookie保存在浏览器中。之后，当客户端浏览器每次请求服务器的时候，浏览器会自动将身份认证相关的cookie，通过请求头的形式发送给服务器，服务器即可验证客户端的身份
+// cookie不具有安全性，存储在浏览器中，容易被伪造，不要使用cookie存储隐私数据
+// 可以通过cookie加cookie认证的机制提高安全性
+// 在express中使用session认证：
+// 安装 npm i express-session
+// 配置中间件
+// const session = require('session');
+app.use(
+  session({
+    secret: "key", //任意字符串，用于加密
+    resave: false, //固定写法
+    saveUninitialized: true, //固定写法
+  })
+);
+// 向session中存数据
+// express-session中间件配置好后，可以通过req.session来访问和使用session对象，从而存储用户数据
+app.post("/api/login", function (req, res) {
+  req.session.user = req.body; //将用户信息存储在session中
+  req.session.islogin = true; //存储用户登录状态
+});
+// 向session中取数据，例如获取用户名
+app.get("/api/username", function (req, res) {
+  if (!req.session.islogin)
+    return res.send({
+      status: "1",
+      msg: "fail",
+    });
+  res.send({
+    status: 0,
+    msg: "success",
+    username: req.session.user.username,
+  });
+});
+// 清空session，req.session.destroy()，例如用户登出时，需要清空session，只会清除当前用户的session，其他用户的session不受影响
+app.post("/api/logout", function (req, res) {
+  req.session.destroy();
+  res.send({
+    status: 0,
+    msg: "logout success",
+  });
+});
+// （2）前后端分离推荐使用JWT认证机制
+// session认证的局限性：session认证需要配合cookie，由于cookie默认不支持跨域访问，所以当涉及到前端跨域请求后端接口时，需要额外的配置，才能实现跨域session认证
+// 当前端请求后端接口不存在跨域时，推荐session认证机制
+// 当前端请求后端接口存在跨域时，推荐JWT（JSON Web Token）认证机制
+// JWT原理：用户的信息通过Token字符串（用户信息在服务器端经过加密生成Token字符串）的形式，保存在客户端浏览器中（localStorage或sessionStorage），之后，当客户端浏览器再次请求服务器的时候，通过请求头的Authorization字段，将Token发送给服务器，服务器通过还原Token字符串为用户信息对象的形式来认证用户的身份
+// 在JWT中用户信息是保存在浏览器中，在session中用户信息是保存在服务器中
+// JWT使用方式
+// 客户端与服务器端通信时，都要带上这个JWT字符串，推荐将JWT放在HTTP请求头的Authorization字段中
+// 使用步骤：
+// 1)安装两个包 npm i jsonwebtoken express-jwt
+// 其中jsonwebtoken用于生成JWT字符串，express-jwt用于将JWT字符串解析还原成JSON对象
+const jwt = require("jsonwebtoken");
+const expressJWT = require("express-jwt");
+const { userInfo } = require("os");
+// 2)定义secret密钥，当生成JWT字符串时，需要使用secret密钥对用户信息进行加密，得到加密的JWT字符串；当把JWT字符串解析还原成JSON对象时，需要使用secret密钥进行解密
+const secretKey = "xuzhanging"; //任意字符串
+// 3)在登录成功后生成JWT字符串
+// 调用jsonwebtoken提供的sign()方法，将用户信息加密成JWT字符串，响应给客户端
+app.post("/api/login", function (req, res) {
+  //省略登陆失败代码
+  //登录成功后
+  res.send({
+    status: 200,
+    msg: "登录成功",
+    //调用jwt.sign()，三个参数分别为：用户信息对象，加密秘钥，配置对象（可配置token有效时间）
+    token: jwt.sign({ username: userInfo.username }, secretKey, {
+      expiresIn: "30s", //token有效时间
+    }),
+  });
+});
+// 4)将JWT字符串还原为JSON对象
+// 服务器可以通过express-jwt中间件，自动将客户端发送过来的token解析还原成json对象
+// expressJWT({ secret: secretKey })用来解析token
+//.unless({ path: [/^\/api\//] })用来指定哪些接口不需要访问权限
+app.use(expressJWT({ secret: secretKey }).unless({ path: [/^\/api\//] }));
+// 5)使用req.user获取用户信息
+// 当express-jwt中间件配置成功后，即可在那些需要权限的接口中，使用req.user对象，来访问从JWT字符串中解析出来的用户信息了。只要成功配置了express-jwt这个中间件，就可以通过req.user访问解析出来的用户信息。
+app.get("/admin/getinfo", function (req, res) {
+  res.send({
+    status: 200,
+    msg: "获取用户信息成功",
+    data: req.user,
+  });
+});
+// 6)捕获解析JWT失败后产生的错误
+// 当使用express-jwt解析token字符串时，如果客户端发送过来的token字符串过期或不合法，会产生一个解析失败的错误，影响正常运行，可以通过express的错误中间件捕获这个错误并进行相关的处理，例如：
+app.use(function (err, req, res, next) {
+  //token解析失败导致的错误
+  if (err.name === "UnauthorizedError") {
+    return res.send({ status: 401, msg: "无效token" });
+  }
+  res.send({ status: 500, msg: "未知错误" });
+});
