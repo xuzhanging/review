@@ -1,0 +1,152 @@
+<!-- 1.clip-path -->
+<!-- clip-path CSS 属性使用裁剪方式创建元素的可显示区域。区域内的部分显示，区域外的隐藏，有多个函数可调用，例如polygon多边形，指定多边形的各个顶点，连接顶点后为一个多边形，多边形内显示，多边形外不显示
+clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%); -->
+
+<!-- 2.backface-visibility -->
+<!-- css添加动画，可能会出现细小的摇晃，可以在添加动画元素的父元素上添加backface-visibility: hidden; 来解决这个问题-->
+
+<!-- 3.animation-fill-mode -->
+<!-- 可以在动画执行之前，将元素的状态设置为动画执行0%时的状态
+animation-fill-mode: backwards; -->
+
+<!-- 4.sass css预处理 -->
+<!-- 4.1.变量：以$开头，例如$color-primary: #ccc; -->
+<!-- 4.2.嵌套：例如选中ul中的li，可以这样写 ul {
+  li {
+    &:first-child {//选中第一个li，注意&符号
+
+    }
+  }
+} -->
+<!-- 4.3.内置函数：例如颜色，background-color: darken($color-primary, 15%); //颜色变深
+background-color: lighten($color-primary, 15%); //颜色变浅 -->
+<!-- 4.4.mixin: 将多行css存储在一个变量中，例如
+@mixin clearfix {
+  $::after {
+    content: '';
+    clear: both;
+    display: table;
+  }
+} 
+使用时
+div {
+  @include clearfix;
+}
+还可以接收参数，例如
+@mixin style-text($color) {
+  text-decoration: none;
+  color: $color;
+}
+a:link {
+  @include style-text($color-primary)
+}-->
+<!-- 4.5.function: 自定义函数 
+@function divide($a, $b) {
+  @return $a / $b;
+}
+div {
+  margin: divide(60, 2) * 1px;//30px
+}-->
+<!-- 4.6.extend -->
+
+<!-- 5.安装并使用sass 
+npm install sass
+在package.json中的scripts中添加"compile:sass": "sass sass/main.scss css/style.css -w" 其中sass/main.scss为要转换为css的sass文件位置，css/style.css为转换为css的文件位置,-w表示运行一次后，若后续修改了scss，会自动转换为css，不必再次运行该脚本。
+然后在终端输入npm run compile:sass-->
+
+<!-- 6.sass文件之间可以导入，要导入的文件命名以_开头，例如_base.scss，在要导向的文件中添加@import 路径名，例如@import "base/base";可以省略_和拓展名 -->
+
+<!-- 7.:not(:last-child) 选中除最后孩子的其他所有元素，例如
+.row:not(:last-child) {}  
+:not(:hover) {} 选中未被hover的所有元素-->
+
+<!-- 8.calc()
+calc() 此 CSS 函数允许在声明 CSS 属性值时执行一些计算，例如
+width: calc((100% - 80px) / 2); -->
+
+<!-- 9.属性选择器，CSS 属性选择器匹配那些具有特定属性或属性值的元素
+div[class^="col-"] {} 选中类以col-开头的所有div元素，
+div[class*="col-"] {} 选中类含col-的所有div元素，
+div[class$="col-"] {} 选中类以col-结尾的所有div元素-->
+
+<!-- 10.用背景填充文本
+-webkit-background-clip: text;
+color: transparent; -->
+
+<!-- 11.skew 倾斜
+transform: skewX(15deg) skew(20deg); -->
+
+<!-- 12.outline
+outline: 1.5rem solid green;
+outline-offset: 2rem; -->
+
+<!-- 13.perspective 透视，加在父容器上
+perspective: 130rem; -->
+
+<!-- 14.注意在sass中编写路径时，要以最后sass编译成的css文件作为参考，例如图片的路径，在sass中写路径时，要以最后的css文件位置作为参考，而不是当前的sass文件位置作为参考 -->
+
+<!-- 15.background-blend-mode CSS属性定义该元素的背景图片，以及背景色如何混合。
+background-blend-mode: screen; -->
+
+<!-- 16.box-decoration-break 属性用来定义当元素跨多行、多列或多页时，元素的片段应如何呈现
+box-decoration-break: clone; 每行或每列样式一样 -->
+
+<!-- 17.shape-outside 的CSS属性定义了一个可以是非矩形的形状，相邻的内联内容应围绕该形状进行包装，使用该属性需要添加浮动，例如文字围绕着圆形图片
+shape-outside: circle(50% at 50% 50%);
+记得加上clip-path: circle(50% at 50% 50%);
+和float: left;-->
+
+<!-- 18.<video> 元素 用于在 HTML 或者 XHTML 文档中嵌入媒体播放器，用于支持文档内的视频播放 如下，设置视频自动、静音、循环播放，当视频无法播放时，会显示I'm sorry; your browser doesn't support HTML5 video.
+<video autoplay muted loop>
+  <source src="img/video.mp4" type="video/mp4">
+  <source src="img/video.webm" type="video/webm">
+  I'm sorry; your browser doesn't support HTML5 video.
+</video>
+-->
+
+<!-- 19.object-fit CSS属性指定可替换元素（例如：<img> 或 <video>）的内容应该如何适应到其使用高度和宽度确定的框
+例如，让视频占满其父容器，但同时又保持视频原宽高比不变，如下：
+object-fit: cover; -->
+
+<!-- 20.:focus {}可以设置元素focus时的样式，例如消除input输入框获得焦点时的外边框样式，
+input:focus {
+  outline: none;
+} -->
+
+<!-- 21.:focus:invalid {} 可以设置元素focus时若输入无效的内容时的样式，例如输入邮箱无效时，颜色设置为orange，
+input:focus:invalid {
+  color: orange;
+}-->
+
+<!-- 22.当input和label是相邻元素时，要实现input未输入内容时，label隐藏，input输入内容时，label向下移动的效果，可以使用placeholder-shown伪类和相邻选择器来实现，在设置了visibility: hidden;的同时又设置opacity: 0;是为了可以使用transform的过渡，达到动画（label向下滑动的效果）的效果。
+input:placeholder-shown + label {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-4rem);
+} -->
+
+<!-- 23.单选框<input type="radio"> 要实现单选，需要加上name属性，保持一致，例如
+<input type="radio" name="radio1">
+<input type="radio" name="radio1">
+-->
+
+<!-- 24.:checked伪类，input(radio、checkbox、option)处于选中状态，例如
+input:checked {} -->
+
+<!-- 25.缓动函数cubic-bezier
+transition: all .8s cubic-bezier(0.68, -0.55, 0.265, 1.55); -->
+
+<!-- 26.display: table; 设置在父容器上，display: table-cell; 设置在子元素上，可以使子元素在一行排列，并且具有相同的高度。
+设置vertical-align: middle; 使内容垂直方向居中-->
+
+<!-- 27.column-count: 2; column-gap: 4rem; column-rule: 1px solid grey;
+设置元素中文本内容两列显示，间距4rem，1px的分割线 -->
+
+<!-- 28.CSS 属性 hyphens 告知浏览器在换行时如何使用连字符连接单词。在 HTML 中，语言由 lang 属性决定，浏览器只会在当前属性存在且有合适的连字字典可用的情况使用连字进行连接。
+hyphens: auto;-->
+
+<!-- 29.:target CSS 伪类表示一个唯一的元素（目标元素），其 id 与当前 URL 片段匹配。即a元素中href的指向，例如href="#section-tours",点击后，页面移动到id为section-tours的部分，同时URL改变，此时该部分的:target可以选中该部分（点击a后，选中id为section-tours的部分），可以配合opacity、visibility用作点击弹出的效果.
+div:target {
+  opacity: 1;
+  visibility: visible;
+} -->
