@@ -1,0 +1,42 @@
+1、初始化空的git仓库，会创建.gitignore文件(配置不需上传到仓库的文件)，若没有需手动创建
+git init
+
+2、将本地仓库与github联系起来
+git config --global user.name github用户名
+或 git config --global user.email github邮箱
+
+3、展示文件跟踪状态
+git status
+
+4、添加所有文件
+git add -A
+
+5、提交文件
+git commit -m '提交描述的字符串'
+
+6、返回到上次(本次的前一次)提交的状态
+git reset --hard HEAD
+
+7、查看提交日志
+git log
+
+8、查看当前所有的分支
+git branch
+
+9、创建新分支
+git branch 分支名
+
+10、切换当前分支
+git checkout 分支名
+
+11、将当前分支与指定分支合并
+git merge 指定分支
+
+12、添加一个远程分支，命名为origin
+git remote add origin 远程仓库地址
+
+13、将本地想推送的分支推送到远程分支
+git push 远程分支名 想推送的分支
+
+14、配置readme.md
+touch README.md
