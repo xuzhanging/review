@@ -254,7 +254,7 @@
 // const users = [{name: 'Joans'}];
 // console.log(users[0]?.name ?? 'Users array empty');
 
-// 25 遍历对象 
+// 25 遍历对象
 // const obj = {
 //     a: 1,
 //     b: 2,
@@ -347,6 +347,8 @@
 // console.log(str.padStart(10, '*'));
 //repeat()
 // console.log(str.repeat(3));
+// localeCompare() 方法返回一个数字来指示一个参考字符串是否在排序顺序之前、之后或与给定字符串相同。用来排序字符串
+// "check".localeCompare("against");//按字母顺序，"check" 一词出现在 "against" 之后
 
 //29 函数默认参数值
 // const function1 = function(a = 1, b = 2, c = 3) {
@@ -391,7 +393,7 @@
 // sing.call(newPerson, 'world');
 // sing.apply(newPerson, ['hi']);
 
-//33 bind() 
+//33 bind()
 //bind() 方法创建一个新的函数，在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，而其余参数将作为新函数的参数，供调用时使用
 // const module = {
 //     x: 42,
@@ -505,7 +507,7 @@
 // expected output: Array [1, 2, 3, 4, 5, 6]
 
 //47 sort()
-//sort() 方法用原地算法对数组的元素进行排序，并返回数组。默认排序顺序是在将元素转换为字符串，然后比较它们的 UTF-16 代码单元值序列时构建的
+//sort() 方法用原地算法对数组的元素进行排序，并返回数组。默认排序顺序是在将元素转换为字符串，然后比较它们的 UTF-16 代码单元值序列时构建的。sort()会改变原数组。
 //string
 // const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
 // console.log(owners.sort());
@@ -533,7 +535,7 @@
 // expected output: Array [6, 6, 6, 6]
 //from()
 //Array.from() 方法对一个伪数组对象（拥有一个 length 属性和若干索引属性的任意对象）或可迭代对象（可以获取对象中的元素，如 Map 和 Set 等）创建一个新的，浅拷贝的数组实例
-// const y = Array.from({length : 7}, (_, i) => i + 1);
+// const y = Array.from({length : 7}, (_, i) => i + 1);//创建一个数组，有7项，从1到7
 // console.log(y);
 
 //49 Number
@@ -587,7 +589,7 @@
 // x = Math.round(-20.51);  //-21
 // Math.ceil() 函数总是四舍五入并返回大于等于给定数字的最小整数
 //Math.floor() 函数总是返回小于等于一个给定数字的最大整数
-//toFixed() 方法使用定点表示法来格式化一个数值
+//toFixed() 方法使用定点表示法来格式化一个数值，保留几位小数
 // console.log((2.7).toFixed(0));
 // console.log((2.345).toFixed(2));
 
@@ -613,6 +615,7 @@
 // console.log(now.getHours());//时
 // console.log(now.getMinutes());//分
 // console.log(now.getSeconds());//秒
+// now.setDate(12);//设置时间的日，为12
 //getTime 方法的返回值一个数值，表示从 1970 年 1 月 1 日 0 时 0 分 0 秒（UTC，即协调世界时）距离该日期对象所代表时间的毫秒数。
 // console.log(now.getTime());
 //Date.now() 方法返回自 1970 年 1 月 1 日 00:00:00 (UTC) 到当前时间的毫秒数
@@ -664,7 +667,6 @@
 //58 instanceof
 //instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上
 // console.log(jonas instanceof Person);
-
 
 //59 JSON.parse() 方法用来解析 JSON 字符串，构造由字符串描述的 JavaScript 值或对象。JSON是一种文本格式字符串.
 //JSON.stringify() 方法将一个 JavaScript 对象或值转换为 JSON 字符串
@@ -1001,3 +1003,8 @@
 
 //86 MVC中的事件监听与事件处理 发布者-订阅者设计模式
 //dom元素事件绑定在view中，导出整个实例化的类，事件处理handle在controller中，controller中导入view中实例化的类，可以在controller中创建一个init（）函数，init函数中调用导入类中的事件绑定函数并传入controller中的handle处理函数作为参数，从而达到事件监听处理的效果
+
+//87 Audio 播放音乐
+// import clickSound from "./ClickSound.m4a";
+// const sound = new Audio(clickSound);
+// sound.play();

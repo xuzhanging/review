@@ -222,7 +222,7 @@
 //33 监听表单提交事件
 // form.addEventListener('submit', function() {});
 
-//34 改变表单的选项值时，触发change事件
+//34 改变表单(<input>、<select>和<textarea>)的选项值时，触发change事件
 // input.addEventListener('change', function() {});
 
 //35 对于给页面一开始加载后还没有创建的元素绑定事件监听，可以用事件委托来实现
@@ -273,3 +273,38 @@
 // window.history.pushState(null, '', `#${model.state.recipe.id}`);
 
 //42 js代码说明文档 jsdoc.app
+
+//43 window.confirm() 令浏览器显示一个带有可选的信息的对话框，并等待用户确认或取消该对话框,阻止用户访问程序界面的其他部分，直到对话框被关闭。返回值一个布尔值，表示是否选择了确定（true）或取消（false）
+// function handleClearList() {
+//   const confirmed = window.confirm(
+//     "Are you sure you want to delete all items?"
+//   );
+//   if (confirmed) setItems([]);
+// }
+
+//44 crypto.randomUUID() //生成随机id，在旧浏览器中无法使用
+
+//45 document.title 网页标题
+
+//46 AbortController 接口表示一个控制器对象，允许你根据需要中止一个或多个 Web 请求
+// let controller;
+// abortBtn.addEventListener("click", () => {
+//   if (controller) {
+//     controller.abort(); //中止一个尚未完成的 Web（网络）请求
+//     console.log("中止下载");
+//   }
+// });
+// function fetchVideo() {
+//   controller = new AbortController(); //创建一个新的 AbortController 对象实例
+//   const signal = controller.signal; //返回一个 AbortSignal 对象实例，它可以用来 with/abort 一个 Web（网络）请求
+//   fetch(url, { signal }) //将 signal 和 controller 与 fetch 请求相关联，并且允许我们通过调用 AbortController.abort() 去中止它
+//     .then((response) => {
+//       console.log("下载完成", response);
+//     })
+//     .catch((err) => {
+//       console.error(`下载错误：${err.message}`);
+//     });
+// }
+//当 abort() 被调用时，这个 fetch() promise 将 reject 一个名为 AbortError 的 DOMException，为了使页面内容正常显示获取的结果，在try catch中可以选择不展示该错误，if(err.name !== "AbortError"){}
+
+//47 document.activeElement 选中当前页面focus的元素
