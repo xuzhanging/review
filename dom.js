@@ -308,3 +308,12 @@
 //当 abort() 被调用时，这个 fetch() promise 将 reject 一个名为 AbortError 的 DOMException，为了使页面内容正常显示获取的结果，在try catch中可以选择不展示该错误，if(err.name !== "AbortError"){}
 
 //47 document.activeElement 选中当前页面focus的元素
+
+//48 在表单中提交表单以外的数据，可以使用
+// <input type="hidden" name="cart" value={JSON.stringify(cart)} /> 当表单提交时，改数据会被提交。
+
+//49 input type 为file时，在事件处理函数中通过e.target.files[0]来访问选择的文件
+
+//50 reset 方法可以重置一个表单内的所有表单控件的值到初始状态,运行该方法和点击表单的重置按钮是一样的效果。例如在事件处理函数中e.target.reset()
+
+//51 window.matchMedia('(prefers-color-scheme: dark)').matches 可以匹配当前操作系统是否是darkmode，若是返回true，若不是返回false。在js代码中可以用来默认设置网站的主题。

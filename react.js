@@ -143,7 +143,7 @@ function Button({ children }) {
   return <button>{children}</button>;
 }
 // PropTypes 在安装create-react-app后，即可导入propTypes进行组件props的类型验证
-import PropTypes, { func } from "prop-types";
+import PropTypes, { element, func } from "prop-types";
 // 验证传入Friend组件的参数类型
 Friend.propTypes = {
   name: PropTypes.string,
@@ -266,7 +266,7 @@ dispatch({ type: "dec" });
 dispatch({ type: "inc", payLoad: Number(e.target.value) });
 
 // 使用vite初始化项目
-// 先npm create vite@4 会提示安装vite 然后输入项目名称例如worldwise 然后选择框架react 再选择JavaScript 然后cd进入项目文件夹 然后npm i安装依赖包 最后npm run dev启动项目
+// 先npm create vite@4 会提示安装vite 然后输入项目名称例如worldwise 然后选择框架react 再选择JavaScript 然后cd进入项目文件夹 然后npm i安装依赖包 然后配置eslint，npm i eslint vite-plugin-eslint eslint-config-react-app --save-dev 然后创建.eslintrc.json文件 在.eslintrc.json中{"extends": "react-app"} 然后在vite.config.js中import eslint from "vite-plugin-eslint"; export default defineConfig({plugins: [react(), eslint()],});最后npm run dev启动项目
 // React Router为react第三方库，路由，安装npm i react-router-dom@6
 // SINGLE-PAGE APPLICATION(SPA) 不会reload页面，而是根据不同的URL render不同的组件
 // 在App中
@@ -363,6 +363,8 @@ import styles from "./PageNav.module.css";
 // const [searchParams, setSearchParams] = useSearchParams();//使用useSearchParams()获取URL中的查询字符串
 // const lat = searchParams.get("lat");//获取lat
 // const lng = searchParams.get("lng");//获取lng
+// searchParams.set("discount", value); //设置discount查询参数，值为value
+// setSearchParams(searchParams)//将设置好的查询参数放到URL中
 // setSearchParams({lat: 23, lng: 50});//设置查询字符串
 
 // useNavigate
@@ -501,6 +503,10 @@ const handleAddPost = useCallback(function handleAddPost(post) {
 // </Suspense>
 
 // REDUX
+// global store update. then all consuming components rerender（redux内部会做性能优化）.
+// useReduder: event handler -> action(type and payload) -> dispatch -> reducer -> update state;
+// redux:event handler -> action creator function(keep all actions one place) -> action -> dispatch -> store(all global state centralize container,contians more reducers，usually one reducer per app feature.) -> update state;
+// redux 代码写在src下store.js中
 // npm i redux;
 //import { createStore } from "redux";
 // const store = createStore(reducer);
@@ -514,25 +520,28 @@ const handleAddPost = useCallback(function handleAddPost(post) {
 // console.log(store.getState());
 // combine more reducers
 // import {combineReducers} from "redux";
+// 将多个reducer放在rootReducer中
 // const rootReducer = combineReducers({
 //   account: accountReducer,
 //   customer: customerReducer,
 // });
 // const store = createStore(rootReducer);
 
-// 讲redux与react application连接起来
+// 通常将多个reducer放在features下的多个文件夹中，命名如accountSlice.js(文件位置：src/features/accounts/accountSlice.js)、customerSlice.js(src/features/customers/customerSlice.js)
+
+// 将redux与react application连接起来，使用react-redux
 // npm i react-redux
-//在index.js中 import { Provider } from "react-redux";
+//在index.jsx(main.jsx)中 import store from "./store.js",import { Provider } from "react-redux";
 /* <Provider store={store}>
   <App />
 </Provider>; */
-// 在子组件中使用
+// 在需要使用store的子组件中使用
 // import {useSelector} from "react-redux";
 // const customer = useSelector(store => store.customer)
 
-// 使用dispatch
+// 在react中使用redux store 的 dispatch
 // import { useDispatch } from "react-redux";
-// const dispatch = useDispatch();
+// const dispatch = useDispatch({type: "", payload: ""});
 
 // reducer中不能进行异步操作，如API 请求
 // 可以使用第三方中间件thunk来处理异步代码，redux中的middleware处于dispatch和store之间。dispatch传过来的action，会先进入middleware，然后进入store。
@@ -558,3 +567,448 @@ const handleAddPost = useCallback(function handleAddPost(post) {
 //     dispatch({ type: "account/deposit", payload: convertData });
 //   };
 // }
+
+// REDUX TOOLKIT //configureStore function 包含了thunk middleware 和DevTools。
+// npm i @reduxjs/toolkit
+// 在store.js中只需导入
+// import { configureStore } from "@reduxjs/toolkit";
+// const store = configureStore({
+//   reducer: {
+//     account: accountReducer,
+//     customer: customerReducer,
+//   },
+// });
+// export default store;
+// 使用redux toolkit，accountSlice.js可以写为
+// import { createSlice } from "@reduxjs/toolkit";
+// const accountSlice = createSlice({
+//   name: "account",
+//   initialState,
+//   reducers: {
+//     deposit: function (state, action) {
+//       state.balance += action.payload;
+//     },
+//     withdraw: function (state, action) {
+//       state.balance -= action.payload;
+//     },
+//     requestLoan: {
+//       //多个参数，先使用prepare function
+//       prepare(loan, purpose) {
+//         return {
+//           payload: {
+//             loan,
+//             purpose,
+//           },
+//         };
+//       },
+//       reducer(state, action) {
+//         if (state.loan > 0) return;
+//         state.loan = action.payload.loan;
+//         state.loanPurpose = action.payload.purpose;
+//         state.balance += action.payload.loan;
+//       },
+//     },
+//   },
+// });
+// export const { deposit, withdraw, requestLoan, payLoan } = accountSlice.actions;
+// export default accountSlice.reducer;
+// 与react application 连接的步骤同redux
+
+// 在redux toolkit 的 creator function中调用creator function，例如
+// decreaseItemQuantity(state, action) {
+//   const item = state.cart.find((item) => item.pizzaId === action.payload);
+//   item.quantity--;
+//   item.total = item.quantity * item.unitPrice;
+//   if (item.quantity === 0) cartSlice.caseReducers.deleteItem(state, action);//creator function中调用creator function
+// }
+
+// redux devtools安装
+// 1）安装google extension ：redux devtools
+// 2）npm i redux-devtools-extension
+// redux toolkit 会自动将devtool与application连接
+
+// 项目文件结构
+// src下features、ui(reusable components)、services(reusable code that interacting with api)、utils(reusable helper function)
+
+// 使用react-router-dom 创建路由的新方法
+// npm i react-router-dom@6
+// import {createBrowserRouter, RouterProvider} from "react-router-dom";
+// const router = createBrowserRouter([
+//   {
+//     element: <AppLayout />,
+//     children: [
+//       {
+//         path: "/",
+//         element: <Home />,
+//       },
+//       {
+//         path: "/menu",
+//         element: <Menu />,
+//       },
+//       {
+//         path: "/cart",
+//         element: <Card />,
+//       },
+//       {
+//         path: "/order/new",
+//         element: <CreateOrder />,
+//       },
+//       {
+//         path: "/order/:orderId",
+//         element: <Order />,
+//       },
+//     ],
+//   },
+// ]);
+
+// export default function App() {
+//   return <RouterProvider router={router}/>
+// }
+
+// 较新版的react-router-dom可以进行fetch data
+// 在Menu.jsx中，创建loader function
+// import { useLoaderData } from "react-router-dom";
+// function Menu() {
+//   const data = useLoaderData();
+//   console.log(data);
+//   return <h1>Menu</h1>;
+// }
+// export async function loader({params}) {//若需要url中的参数，可以使用params
+//   const data = await getMenu();
+//   return data;
+// }
+// {
+//   path: "/menu",
+//   loader: menuLoader,
+//   element: <Menu />
+// }
+
+// 添加加载指示器，可以使用react-router-dom提供的useNavigation，useNavigation返回的对象中state属性表示数据是否加载完成，可以根据这个属性，展示自定义的Loader component
+
+// 错误处理，在react-router-dom中可以使用useRouteError来处理错误，注意子路由中的error如果没有处理，会冒泡到父路由上。
+//   {
+//     element: <AppLayout />,
+//     errorElement: <Error />,
+//     children: ...
+//   },
+// ]);
+// 在Error component中
+// import { useRouteError } from "react-route-dom";
+// const error = useRouteError();
+// console.log(error.data);
+
+// 使用react router actions 向服务端写数据、改数据 前面提到的loader是读数据，下面的action是写数据
+// 使用react-router-dom提交数据，可以使用react-router-dom提供的Form
+// import { Form, redirect } from "react-router-dom";
+// {
+//   path: "/order/new",
+//   element: <CreateOrder />,
+//   action: createOrderAction,
+// }
+// export async function action({ request }) {
+//   const formData = await request.formData();
+//   const data = Object.fromEntries(formData);
+//   const order = {
+//     ...data,
+//     cart: JSON.parse(data.cart),
+//     priority: data.priority === "on",
+//   };
+//   const newOrder = await createOrder(order);
+//   console.log(newOrder);
+//   return redirect(`/order/${newOrder.id}`);//useNavigate用在compoment中，可以使用react-router-dom提供的redirect
+// }
+
+// tailwind css
+// 在官网查看安装，选择vite，react根据步骤安装
+// 安装Tailwind CSS IntelliSense 插件
+// 安装prettier extension，npm install -D prettier prettier-plugin-tailwindcss
+// 创建prettier.config.cjs，在该文件中编写
+// module.exports = {
+//   plugins: ["prettier-plugin-tailwindcss"],
+// };
+
+// defaultValue属性表示表单input默认值，若此表单不是controlled element，但使用的是global state中的值，可以使用defaultValue，此时再输入，input值会改变（若使用value，则不会改变）
+
+// style component第三方库
+// npm i styled-components
+// 安装vscode-styled-components 插件
+// import styled from "styled-components";
+// const H1 = styled.h1` //组件，首字母大写，styled后面为html元素，该组件可以接受和html元素、jsx一样的属性和参数 注意：如果命名重复，可以在前面加上Styled，例如StyledHeader
+//   font-size: 30px;
+//   font-weight: 600;
+// `;
+// const StyledApp = styled.div`
+//   background-color: orange;
+// `;
+// function App() {
+//   return (
+//     <StyledApp>
+//       <H1>The wild oasis</H1>
+//     </StyledApp>
+//   );
+// }
+// export default App;
+
+// 使用style component写global style
+// 新建GlobalStyles.js
+// import { createGlobalStyle } from "styled-components";
+// const GlobalStyles = createGlobalStyle`button {cursor: pointer;}`;
+// export default GlobalStyles;
+// 在App.js中，将GlobalStyles组件包含在App中，
+// import GlobalStyles from "./styles/GlobalStyles";
+// function App() {
+//   return (
+//     <>
+//       <GlobalStyles />
+//       <div>
+//         <H1>The wild oasis</H1>
+//       </div>
+//     </>
+//   );
+// }
+
+// 在style component中写hover和在sass中一样
+// const Button = styled.button`
+//   &:hover {
+//     background-color: #fff;
+//   }
+// `;
+
+// style component css function、props
+// 例如
+// <Header as="h2"></Header> //Header 作为h2
+// const Header = styled.h1`
+//   ${(props) =>
+//     prop.as === "h1" &&
+//     css`
+//       font-size: 2rem;
+//     `}
+//   ${(props) =>
+//     prop.as === "h2" &&
+//     css`
+//       font-size: 3rem;
+//     `}
+//   ${(props) =>
+//     prop.as === "h3" &&
+//     css`
+//       font-size: 4rem;
+//     `}
+// `;
+
+// 使用style component 给第三方组件添加样式，例如给NavLink添加样式
+// const StyledNavLink = styled(NavLink)`
+//   background-color: #fff;
+// `;
+
+// 使用styled component 给组件指定属性，例如创建一个type为file的input
+// const StyledInput = styled.input.attrs({ type: "file" })`...`;
+
+// styled component本质上是component，可以在写样式时，通过props访问到传进来的prop，例如,访问传入StyledButton的active，若有该prop则改变背景颜色。
+// const StyledButton = styled.button`
+//   ${(props) =>
+//     props.active &&
+//     css`
+//       background-color: yellow;
+//     `}
+// `;
+
+// react component 可以设置默认prop
+// Headers.defaultProps = {
+//   type: "h2",
+// };
+
+// react icons 第三方库
+// npm i react-icons
+// 可在react-icons官网查看
+
+// supabase
+// 连接supabase和react app
+// npm i --save @supabase/supabase-js
+// 在services下创建supabase.js 在API doc中找到代码粘贴并替换supabasekey
+
+// React Query 管理remote state
+// npm i @tanstack/react-query@4
+// 安装react-query devtools
+// npm i @tanstack/react-query-devtools
+// 在App.jsx中
+// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// const queryClient = new QueryClient();
+// function App() {
+//   return (
+//     <QueryClientProvider client={queryClient}>
+//       <ReactQueryDevtools initialIsOpen={false} />
+//       ...
+//     </QueryClientProvider>
+//   );
+// }
+
+// react query fetch and store data
+// import { useQuery } from "@tanstack/react-query";
+// const { isLoading, data, error } = useQuery({
+//   queryKey: ["cabin", id], //参数一为存储在cach中的名字，参数二为依赖数组，当依赖数组改变时(比如id改变)，会重新fetch数据
+//   queryFn: getCabins, //自定义function to fetch data，return promise
+// });
+
+// react query add remote state
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+const queryClient = useQueryClient();
+const { isLoading: isCreating, mutate } = useMutation({
+  mutationFn: addCabin,
+  onSuccess: (data) => {
+    //onSuccess可以接受参数data（mutationFn返回的结果）
+    queryClient.invalidateQueries({
+      queryKey: ["cabins"], //也可以直接写为active: true 将所有queryKey更新
+    });
+  },
+  onError: (err) => alert(err.message),
+});
+function onsubmit(data) {
+  mutate(data); //提交数据
+}
+
+// react query delete data
+// import { useMutation, useQueryClient } from "@tanstack/react-query";
+// const queryClient = useQueryClient();
+// const { isLoading: isDeleting, mutate } = useMutation({
+//   mutationFn: (id) => deleteCabin(id),
+//   onSuccess: () => {
+//     queryClient.invalidateQueries({
+//       queryKey: ["cabins"],
+//     });
+//   },
+//   onError: (err) => alert(err.message),//onError可以捕获到mutationFn中抛出的异常
+// });
+// <button onClick={() => mutate(cabinId, {onSettled: () => ...})} disable = {isDeleting}>delete</button>; //参数二中onSettled表示不论成功或出错，都会调用该函数。
+
+// react query prefetch data
+// const queryClient = useQueryClient();
+// queryClient.prefetchQuery({
+//   queryKey: ['bookings'],
+//   queryFn: ...
+// })
+
+// queryClient.removeQueries() 用于清除react query cach
+
+// queryClient.setQueryData(['user'], user) 用于手动更新cach
+
+// react-hot-toast react第三方库 弹出框
+// npm i react-hot-toast
+// 在App.jsx中
+// import { Toaster } from "react-hot-toast";
+// function App() {
+//   return (
+//     <QueryClientProvider client={queryClient}>
+//       <Toaster />
+//       <BrowserRouter>
+//         <Routes>
+//           ...
+//         </Routes>
+//       </BrowserRouter>
+//     </QueryClientProvider>
+//   );
+// }
+// 需要弹窗时
+// import { toast } from "react-hot-toast";
+// toast.success("delete success");
+// toast.error(err.message);
+
+// react-hook-form 第三方库 处理form
+// npm i react-hook-form
+// import { useForm } from "react-hook-form";
+// function CreateCabinForm() {
+//   const { register, handleSubmit } = useForm();
+//   function onSubmit(data) {
+//     console.log(data);
+//   }
+// function onError(errors) {
+//   console.log(errors);
+// }
+//   return (
+//     <Form onSubmit={handleSubmit(onSubmit, onError)}> //当表单通过验证时，调用onSubmit，错误时，调用onError
+//       <FormRow>
+//         <Label htmlFor="name">Cabin name</Label>
+//         <Input type="text" id="name" {...register("name", { required: "This field is required", min: {value: 1, message: "at least 1"} })} /> //第一个参数和id一致，required表示该项必填，后面为未填时的报错信息
+//       </FormRow>
+//       <FormRow>
+//         <Label htmlFor="discount">Discount</Label>
+//         <Input
+//           type="number"
+//           id="discount"
+//           defaultValue={0}
+//           {...register("discount")} //第一个参数和id一致
+//         />
+//       </FormRow>
+//       <FormRow>
+//         <Button>Add cabin</Button>
+//       </FormRow>
+//     </Form>
+//   );
+// }
+
+// react组件作为children传入父组件，在父组件可以通过children.props.属性名 在父组件来访问子组件的属性
+
+// createPortal 可以使组件在任何位置render，但原来所处的dom树位置不变
+// import { createPortal } from "react-dom";
+// function Modal() {
+//   return createPortal(<div>hello</div>, document.body); //参数一为要放置的组件，参数二为放置的位置
+// }
+
+// 实现点击模态框外关闭模态框的效果
+// const modalRef = useRef(); //存储模态框，通过current访问
+// useEffect(
+//   function () {
+//     function handleClick(e) {
+//       if (modalRef.current && !modalRef.current.contains(e.target)) close();
+//     }
+//     document.addEventListener("click", handleClick, true); //取消冒泡
+//     return () => document.removeEventListener("click", handleClick, true);
+//   },
+//   [close]
+// );
+// <Modal ref={modalRef} />; //使用useRef选中模态框
+
+// Authorization Protected Route 身份认证
+// 可以创建一个ProtectedRoute组件，将AppLayout作为该组件的children，在ProtectedRoute中进行身份认证，从而实现只有登录之后的user可以访问到AppLayout下的所有路由
+// 在ProtectedRoute中：
+// 1.load authenticated user
+// 2.while loading，show a spinner
+// 3.if there is no authenticated user, redirect to login
+// 4.if there is a user, render the app
+
+// recharts 第三方库 react图表
+// npm i recharts@2
+
+// error boundaries 处理react app render时出现的错误
+// npm i react-error-boundary
+// 在main.jsx中
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "./ui/ErrorFallback";
+<ErrorBoundary
+  FallbackComponent={ErrorFallback}
+  onReset={() => window.location.replace("/")}
+>
+  <App />
+</ErrorBoundary>;
+// 在ui文件夹中创建ErrorFallback.jsx
+// function ErrorFallback({ error, resetErrorBoundary }) {
+//   return (
+//     <>
+//       <Heading as="h1">Something went wrong 🧐</Heading>
+//       <p>{error.message}</p>
+//       <Button onClick={resetErrorBoundary}>
+//         Try again
+//       </Button>
+//     </>
+//   );
+// }
+// export default ErrorFallback;
+
+// react app 线上发布 netlify/vercel
+// 若选择在netlify部署，在项目根目录中创建文件netlify.toml，编写
+// [[redirects]]
+// from = "/*"
+// to = "/index.html"
+// status = 200
+// 将整个项目打包到dist中 npm run build
+// 创建本地git仓库，连接github远程仓库，提交代码

@@ -260,7 +260,7 @@
 //     b: 2,
 //     c: 3
 //   };
-//   const propertyName = Object.keys(obj);
+//   const propertyName = Object.keys(obj);//返回一个由给定对象的属性名组成的数组
 //   console.log(propertyName);
 //   const values = Object.values(obj);
 //   console.log(values);
@@ -1008,3 +1008,7 @@
 // import clickSound from "./ClickSound.m4a";
 // const sound = new Audio(clickSound);
 // sound.play();
+
+// 88 typeof 运算符返回一个字符串，表示操作数的类型
+// console.log(typeof 42);
+// Expected output: "number"
