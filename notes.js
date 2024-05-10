@@ -1012,3 +1012,14 @@
 // 88 typeof 运算符返回一个字符串，表示操作数的类型
 // console.log(typeof 42);
 // Expected output: "number"
+
+// 89 delete 删除对象的一个属性
+// const Employee = {
+//     firstname: 'Maria',
+//     lastname: 'Sanchez',
+// };
+// console.log(Employee.firstname);
+// // Expected output: "Maria"
+// delete Employee.firstname;
+// console.log(Employee.firstname);
+// // Expected output: undefined
